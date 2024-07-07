@@ -7,6 +7,13 @@ import numpy as np
 
 
 class IQR:
+    """
+    IQR
+    ===
+
+    It's a class for identify outliers in pandas dataframe
+
+    """
     def __init__(self, data: np.ndarray) -> np.ndarray:
         #Convert the data as an numpy array to be able to work with pandas Dataframe
         self.data = np.asanyarray(data)
