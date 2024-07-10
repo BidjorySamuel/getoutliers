@@ -1,15 +1,7 @@
-
 # getoutliers or get out, liers 😅
 
 ## Overview
-
-`getoutliers` is a Python module designed to identify and handle outliers in a dataset using the Interquartile Range (IQR) method. This module can be particularly useful for data preprocessing in data science and machine learning projects.
-
-## Features
-
-- **IQR Calculation**: Calculate the Interquartile Range to detect potential outliers.
-- **Outlier Detection**: Determine if there are outliers in the dataset.
-- **Outlier Handling**: Replace outliers with NaN values and fill them with specified methods (mean, median, mode).
+The `getoutliers` module is a Python package designed to identify and manipulate outliers in pandas DataFrames using statistical methods such as IQR (Interquartile Range) and Z-Score. This module provides a set of classes to help with detecting and handling outliers, offering flexibility and ease of use for data preprocessing.
 
 ## Installation
 
@@ -19,134 +11,86 @@ To install the module, simply clone this repository and install the dependencies
 git clone https://github.com/BidjorySamuel/getoutliers.git
 cd getoutliers
 pip install -r requirements.txt
+pip install e .
 ```
 
 ## Usage
 
 ### IQR Class
 
-The `IQR` class is used to calculate the Interquartile Range and detect outliers.
+The `IQR` class identifies outliers using the Interquartile Range method.
 
-#### Initialization
+#### Methods
 
-```python
-import numpy as np
-from getoutliers import IQR
+- **__init__(self, data: np.ndarray)**: Initializes the class with the input data.
 
-data = np.array([1, 2, 3, 4, 5, 30])
-iqr = IQR(data)
-```
+- **iqr**: Computes the IQR, returning Q1 (25th percentile), Q3 (75th percentile), and the IQR value.
+    ```python
+    x = IQR([1, 2, 3, 4, 5])
+    print(x.iqr)  # {'Q1': 2, 'Q3': 4, 'result': 2}
+    ```
 
-#### IQR Property
+- **there_lb(self, bool_=True)**: Checks if there are lower bound outliers. Returns a boolean or the lower bound value based on the `bool_` parameter.
 
-Calculates the Interquartile Range (IQR) which is the difference between the 75th percentile (Q3) and the 25th percentile (Q1).
+- **there_up(self, bool_=True)**: Checks if there are upper bound outliers. Returns a boolean or the upper bound value based on the `bool_` parameter.
 
-```python
-iqr_values = iqr.iqr
-print(iqr_values)
-# Output: {'Q1': 2.0, 'Q3': 4.0, 'result': 2.0}
-```
+- **theres_outliers(self, value=False)**: Determines if there are any outliers and returns their details. If `value` is True, returns the outlier values directly.
 
-#### Lower Bound Detection
+### ZScore Class
 
-Checks if there are any lower bound outliers (values significantly lower than the 25th percentile minus 1.5 times the IQR).
+The `ZScore` class identifies outliers using the Z-Score method.
 
-```python
-has_lower_bound_outliers = iqr.there_lb()
-print(has_lower_bound_outliers)
-# Output: False
-```
+#### Methods
 
-#### Upper Bound Detection
+- **__init__(self, data: pd.Series)**: Initializes the class with the input data.
 
-Checks if there are any upper bound outliers (values significantly higher than the 75th percentile plus 1.5 times the IQR).
+- **theres_outliers(self, threshold=None, threshold_flexible="")**: Determines outliers based on a specified threshold or flexible threshold (min, max, mean, std).
 
-```python
-has_upper_bound_outliers = iqr.there_up()
-print(has_upper_bound_outliers)
-# Output: True
-```
+- **__zscore(self, threshold)**: Private method to compute the Z-Score and identify outliers.
 
-#### Outlier Information
+### OutlierManipulater Class
 
-Provides detailed information about the outliers, indicating whether there are lower or upper bound outliers and their respective values.
+The `OutlierManipulater` class manipulates outliers in a pandas DataFrame.
 
-```python
-outliers_info = iqr.theres_outliers()
-print(outliers_info)
-# Output: {'there_up?': True, 'up_iqr': 7.0}
-```
+#### Methods
 
-### Outlier Manipulator Class
+- **__init__(self, data: Series)**: Initializes the class with the input data.
 
-The `Outlier_manipulater` class is used to handle outliers in a pandas DataFrame.
+- **nan_outliers(self)**: Replaces outliers with NaN values.
+    ```python
+    om = OutlierManipulater(pd.Series([1, 2, 3, 4, 30]))
+    print(om.nan_outliers())  # Outliers replaced with NaN
+    ```
 
-#### Initialization
+- **fill_outliers(self, method="mean")**: Fills NaN values (former outliers) using a specified method (mean, median, mode).
 
-```python
-import pandas as pd
-from getoutliers import Outlier_manipulater
+- **fill(self, method="mean")**: A convenience method that replaces outliers with NaN and fills them using the specified method.
 
-data = pd.Series([1, 2, 3, 4, 5, 30])
-om = Outlier_manipulater(data)
-```
+- **remove_outliers(self)**: Placeholder for a method to remove outliers (not implemented).
 
-#### Replace Outliers with NaN
+### ViewOutliers Class
 
-Identifies and replaces outliers with NaN values.
+The `ViewOutliers` class provides visualization for outliers in a pandas DataFrame.
 
-```python
-data_with_nan = om.nan_outliers()
-print(data_with_nan)
-# Output: 0     1.0
-#         1     2.0
-#         2     3.0
-#         3     4.0
-#         4     5.0
-#         5     NaN
-#         dtype: float64
-```
+#### Methods
 
-#### Fill NaN Values
+- **__init__(self, data: pd.Series)**: Initializes the class with the input data.
 
-Fills NaN values (former outliers) with a specified method (mean, median, mode).
-
-```python
-filled_data = om.fill_outliers(method="mean")
-print(filled_data)
-# Output: 0     1.0
-#         1     2.0
-#         2     3.0
-#         3     4.0
-#         4     5.0
-#         5     3.0
-#         dtype: float64
-```
-
-#### Combined Method
-
-Automatically replaces outliers with NaN and fills them with the specified method.
-
-```python
-om.fill(method="mean")
-print(om.data)
-# Output: 0     1.0
-#         1     2.0
-#         2     3.0
-#         3     4.0
-#         4     5.0
-#         5     3.0
-#         dtype: float64
-```
+- **boxplot(self)**: Displays a boxplot of the data and returns the IQR and median values.
+    ```python
+    vo = ViewOutliers(pd.Series([1, 2, 3, 4, 30]))
+    vo.boxplot()  # Displays boxplot
+    ```
 
 ## Contributing
 
-If you wish to contribute to this module, feel free to fork the repository and submit a pull request. Contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request on GitHub.
 
 ---
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+
 
 By following these instructions, you can easily identify and handle outliers in your dataset, ensuring cleaner and more reliable data for your analysis and modeling tasks.

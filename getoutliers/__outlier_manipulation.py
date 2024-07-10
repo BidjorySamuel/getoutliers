@@ -5,10 +5,10 @@ It's the more revelant module, cause that can manipulate a outliers in a pandas 
 
 """
 from pandas import Series
-from getoutliers.__iqr import IQR
+from getoutliers.__outlier_detections import IQR
 import numpy as np
 
-class Outlier_manipulater():
+class OutlierManipulater():
     """
     OM = Outlier_manipulater
     =====
@@ -73,3 +73,6 @@ class Outlier_manipulater():
         self.fill_outliers(method=method)
 
         return None
+    
+    def remove_outliers(self):
+        pass

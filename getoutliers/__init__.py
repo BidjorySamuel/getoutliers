@@ -7,14 +7,17 @@ Outliers it's just a library to identify outliers in a pandas Dataframe and mani
 
 'Made by Samuel Bidjory'
 
-github: https://github.com/BidjorySamuel/BidjorySamuel
+github: https://github.com/BidjorySamuel/getoutliers
 """
 
 __version__ = "0.0.3"
 
-from getoutliers.__iqr import IQR
-from getoutliers.__outlier import Outlier_manipulater
+from getoutliers.__outlier_detections import *
+from getoutliers.__outlier_manipulation import OutlierManipulater
+from getoutliers.__outlier_visualization import ViewOutliers
 
 __all__ = ["IQR",
-           "Outlier_manipulater",
+           "OutlierManipulater",
+           "ZScore",
+           "ViewOutliers"
            ]
