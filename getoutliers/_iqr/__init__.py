@@ -146,13 +146,13 @@ class IQR:
                 outlier_values = self.data[condition]
                 return {"index": outlier_index, "value": outlier_values}
             
-            elif self.there_lb():
-                result = np.where(self.data < self.there_lb().any())
-                return {"index": result, "value": self.data[result]}
+            elif therelb and not thereup:
+                result = np.where(self.data < self.there_lb(bool_=False))
+                return {"index": result[0], "value": self.data[result[0]]}
             
-            elif self.there_up():
-                result = np.where(self.data > self.there_up().any())
-                return {"index": result, "value": self.data[result]}
+            elif thereup and not therelb:
+                result = np.where(self.data >= self.there_up(bool_=False))
+                return {"index": result[0], "value": self.data[result[0]]}
             
             else:
                 return None
