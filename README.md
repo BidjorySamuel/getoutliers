@@ -5,13 +5,10 @@ The `getoutliers` module is a Python package designed to identify and manipulate
 
 ## Installation
 
-To install the module, simply clone this repository and install the dependencies (pip package soon).
+To install the module:
 
 ```bash
-git clone https://github.com/BidjorySamuel/getoutliers.git
-cd getoutliers
-pip install -r requirements.txt
-pip install e .
+pip install getoutliers
 ```
 
 ## Usage
