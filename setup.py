@@ -11,7 +11,7 @@ setup(
 
     # This package is based on numpy and pandas, so it's really necessary that you install it
 
-    requires=[
+    install_requires=[
         "numpy",
         "pandas",
         "matplotlib",

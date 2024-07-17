@@ -22,7 +22,7 @@ from ._zscore import ZScore
 from ._iqr import IQR
 from ._manipulation import OutlierManipulater
 from ._view import ViewOutliers
-from ._outmd import OutlierMultiD
+from ._outmd import IqrMultiD
 from ._nan_value import nan_value
 
 

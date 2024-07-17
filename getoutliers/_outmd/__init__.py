@@ -4,9 +4,9 @@ from getoutliers._iqr import IQR
 
 
 
-class OutlierMultiD:
+class IqrMultiD:
     """
-    Outlier Multi-Dimensional (pandas DataFrame)
+    IQR Multi-Dimensional (pandas DataFrame)
     ------
 
     detect outlier in a pandas dataframe,
@@ -15,11 +15,35 @@ class OutlierMultiD:
 
     """
     def __init__(self, data:pd.DataFrame):
-        self.data = data
+        # I have to do that in the moment, but i'm really working
+        # about that.
+        # The concern is, that's gonna select just numeric columns.
+        # And it gonna returns just those numeric columns
+        self.data = data.select_dtypes(np.number)
+
+
+    @property
+    def iqr(self) -> pd.DataFrame:
+
+        columns = self.data.columns
+        #Create a dictionary to store others dictionaries
+        iqrs = {}
+
+        for col in columns:
+
+            iqr_detector = IQR(self.data[col])
+
+            result = iqr_detector.iqr
+
+            iqrs[col]  = result
+
+        return pd.DataFrame(iqrs)
+
+            
+
 
     
-
-    def getoutlier(self):
+    def getoutlier(self) -> pd.DataFrame:
         """
         This method gonna select the numerics columns, 
         the index gonna begin at the first numeric column,
@@ -28,22 +52,21 @@ class OutlierMultiD:
         
         """
 
-        numeric_columns = self.data.select_dtypes(np.number)
-        columns = numeric_columns.columns
+        columns = self.data.columns
 
-        outliers = []
+        outliers = {}
         index_column_count = 0
 
         for col in columns:
 
-            iqr_detector = IQR(numeric_columns[col])
+            iqr_detector = IQR(self.data[col])
 
             result = iqr_detector.theres_outliers(value=True)
 
             text = {"index": np.array([index_column_count, int(result["index"])]), "value":result["value"]}
 
-            outliers.append(text)
+            outliers[col] = text
 
             index_column_count += 1
 
-        return outliers
+        return pd.DataFrame(outliers)
