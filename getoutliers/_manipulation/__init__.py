@@ -7,6 +7,7 @@ It's the more revelant module, cause that can manipulate a outliers in a pandas 
 from pandas import Series
 from getoutliers._iqr import IQR
 import numpy as np
+from typing import Literal
 
 class OutlierManipulater():
     """
@@ -36,7 +37,7 @@ class OutlierManipulater():
         return self.data
     
 
-    def fill_outliers(self, method="mean"):
+    def fill_outliers(self, method: Literal["mean", "median", "mode"] = "mean") -> Series:
         """Fill NaN values (former outliers) with a specified method.
         
         Method options:
@@ -47,8 +48,6 @@ class OutlierManipulater():
         But to use fill_outliers function, you must use nan_outliers method firstly, it's obligatory,
         But if you don't want to do all this, you must use "fill" method.
         """
-        if method not in ["mean", "median", "mode"]:
-            raise ValueError(f"Method '{method}' not in the options")
 
         if method == "mean":
             fill_value = self.data.mean()
@@ -61,7 +60,7 @@ class OutlierManipulater():
         return self.data
     
 
-    def fill(self, method="mean") -> None:
+    def fill(self, method: Literal["mean", "median", "mode"] = "mean") -> Series:
         """
         That's method it's just for lazy people
         who don't want to use nan_outliers

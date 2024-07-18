@@ -12,13 +12,12 @@ class IqrMultiD:
     detect outlier in a pandas dataframe,
     using IQR (1.5) method.
 
-
     """
     def __init__(self, data:pd.DataFrame):
         # I have to do that in the moment, but i'm really working
         # about that.
         # The concern is, that's gonna select just numeric columns.
-        # And it gonna returns just those numeric columns
+        # And it gonna returns just those numeric columns.
         self.data = data.select_dtypes(np.number)
 
 

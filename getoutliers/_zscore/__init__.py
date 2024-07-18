@@ -15,33 +15,12 @@ class ZScore:
         self.data = np.asanyarray(data)
 
 
-    def theres_outliers(self, threshold=None, threshold_flexible="mean"):
+    def theres_outliers(self, threshold=None):
         
         #If threshold is not None (has to be a number)
         if threshold:
             return self.__zscore(threshold=threshold)
         
-        else:
-            if threshold_flexible == "min":
-                value_with_nan = nan_value.nan_outliers(self.data)
-                min_ = np.min(value_with_nan)
-                self.__zscore(threshold=min_)
-            
-            elif threshold_flexible == "max":
-                value_with_nan = nan_value.nan_outliers(self.data)
-                max_ = np.max(value_with_nan)
-                self.__zscore(threshold=max_)
-
-            elif threshold_flexible == "mean":
-                value_with_nan = nan_value.nan_outliers(self.data)
-                mean = np.mean(value_with_nan)
-                self.__zscore(threshold=mean)
-            
-            elif threshold_flexible == "std":
-                value_with_nan = nan_value.nan_outliers(self.data)
-                std = np.std(value_with_nan)
-                self.__zscore(threshold=std)
-
 
 
 
