@@ -1,6 +1,6 @@
 # getoutliers: get out, liers
 
-[![PyPI version](https://badge.fury.io/py/getoutliers.svg)](https://badge.fury.io/py/getoutliers)
+[![getoutliers - Pypi](https://badge.fury.io/py/getoutliers.svg)](https://badge.fury.io/py/getoutliers)
 
 `getoutliers` is a Python library designed to identify and manipulate outliers in pandas DataFrames. It offers various methods based on IQR and Z-Score to detect outliers and functionalities to effectively replace or remove them.
 
@@ -286,6 +286,4 @@ If you wish to contribute to this module, feel free to fork the repository and s
 
 `getoutliers` was created by Samuel Bidjory.
 
-GitHub: [https://github.com/BidjorySamuel/getoutliers](https://github.com/BidjorySamuel/getoutliers)
-
----
+GitHub: [getoutliers](https://github.com/BidjorySamuel/getoutliers)
