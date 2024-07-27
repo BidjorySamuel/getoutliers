@@ -1,8 +1,8 @@
 import numpy as np
+from _dtypes.types import DTypeUniOutlier
 
 
-
-class IQR:
+class IQR(DTypeUniOutlier):
     """
     IQR
     ===
@@ -10,13 +10,7 @@ class IQR:
     It's a class for identify outliers in pandas dataframe
 
     """
-    def __init__(self, data: np.ndarray) -> np.ndarray:
-        #Convert the data as an numpy array to be able to work with pandas Dataframe
-        self.data = np.asanyarray(data)
-        
-
     
-
     @property
     def iqr(self):
         """
@@ -33,15 +27,17 @@ class IQR:
 
         return {"Q1":Q1, "Q3":Q3, "result":Q3 - Q1}
 
-        
-    
+
+
     def there_lb(self, bool_=True):
         """
-        there_lb = "there lower bound"
 
+        there_lb = "there lower bound"
+        
         The lower bound is the method that gonna say to you,
         if in the specific dataset (pandas Series) has lower bound outliers or not.
         
+
         """
         iqr = self.iqr["result"]
 
@@ -78,6 +74,7 @@ class IQR:
         else:
             raise "The value has to be a boolean type, it works with 1 or 0"
         
+    
         
     def theres_outliers(self, value=False):
         """
@@ -101,7 +98,7 @@ class IQR:
         >>> x = getoutliers.IQR(list)
         >>> x.there_outliers()
         {'there_lb?': True, 'lb_iqr': np.float64(-10)}
-        
+
         """
 
         if value == False:
@@ -125,9 +122,8 @@ class IQR:
             
             else:
                 return self.data
-            
-
-        # If the value is True, that gonna return just the value (outliers) of the dataset    
+        
+        # If the value is True, that gonna return just the value (outliers) of the dataset
         elif value == True:
 
             thereup = self.there_up()
@@ -153,8 +149,6 @@ class IQR:
             elif thereup and not therelb:
                 result = np.where(self.data >= self.there_up(bool_=False))
                 return {"index": result[0], "value": self.data[result[0]]}
-            
+
             else:
                 return None
-        
-

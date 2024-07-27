@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from getoutliers._nan_value import nan_value
+
+
 class ZScore:
     """
     Z-Score
@@ -39,5 +40,3 @@ class ZScore:
                 "stdev":stdev,
                 "zscore":result,
                 "outliers":check_outlier}
-                
-

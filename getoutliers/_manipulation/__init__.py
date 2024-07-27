@@ -8,8 +8,11 @@ from pandas import Series
 from getoutliers._iqr import IQR
 import numpy as np
 from typing import Literal
+from _dtypes.types import DTypeUniOutlier
 
-class OutlierManipulater():
+
+
+class OutlierManipulater(DTypeUniOutlier):
     """
     OM = Outlier_manipulater
     =====
@@ -20,10 +23,6 @@ class OutlierManipulater():
     Outlier_manipulater
     
     """
-    def __init__(self, data:Series):
-        self.data = Series(data)
-
-
     def nan_outliers(self):
         """Replace outliers with NaN values."""
         iqr = IQR(self.data)
