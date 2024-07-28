@@ -37,8 +37,8 @@ df = pd.DataFrame(dados)
 ### Using `ManiOut2D` to Remove Outliers
 
 ```python
-Iqrmult = ManiOut2D(df)
-print(Iqrmult.remove_outliers())
+maniout = ManiOut2D(df)
+print(maniout.remove_outliers())
 ```
 
 ### Class: `IQR`
