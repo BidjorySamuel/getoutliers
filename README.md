@@ -95,7 +95,7 @@ import numpy as np
 from getoutliers import ManiOut2D, IqrMultiD
 
 dados = {
-    "nome": ["Sam", "Dudu", "Pedro", "Maccgnan", "rt", "dfoj"],
+    "nome": ["Sam", "Dudu", "Pedro", "John", "Don", "Ben"],
     "Idade": [23, 20, 23, 200, 23, 12],
     "Salario": [2300, 2500, 2300, 2400, 45000, 2600]
 }
