@@ -3,7 +3,7 @@ import numpy as np
 
 
 
-class DType1DOutlier: #Data Type Uni-D Outlier
+class DType1DOutlier: #Data Type 1-D Outlier
     
     def __init__(self, data):
         #Convert the data as an numpy array to be able to work with pandas Dataframe
@@ -14,7 +14,7 @@ class DType1DOutlier: #Data Type Uni-D Outlier
 
 
 
-class Dtype2DOutlier: #Data type Multi-Dimensional Outlier
+class Dtype2DOutlier: #Data type 2-Dimensional Outlier
     
     def __init__(self, data:pd.DataFrame):
         # I have to do that in the moment, but i'm really working
