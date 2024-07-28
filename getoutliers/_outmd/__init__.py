@@ -1,12 +1,12 @@
 import numpy as np
 import pandas as pd
 from getoutliers._iqr import IQR
-from getoutliers._manipulation import OutlierManipulater
-from _dtypes.types import DtypeMultuDOutlier
+from getoutliers._manipulation import ManiOut1D
+from _dtypes.types import Dtype2DOutlier
 
 
 
-class IqrMultiD(DtypeMultuDOutlier):
+class IqrMultiD(Dtype2DOutlier):
     """
     IQR Multi-Dimensional (pandas DataFrame)
     ------
@@ -68,7 +68,12 @@ class IqrMultiD(DtypeMultuDOutlier):
     
 
 
-class ManiOutMultiD(DtypeMultuDOutlier):
+class ManiOut2D(Dtype2DOutlier):
+    """
+    
+    Manipulate Outlier for 2-Dimensional Data (pandas DataFrame)
+    
+    """
 
     def nan_outliers(self):
         
@@ -78,19 +83,41 @@ class ManiOutMultiD(DtypeMultuDOutlier):
 
         for col in self.columns:
             # Im using the OutlierManipulater to nan outliers in each numeric columns
-            iqr_manipulating = OutlierManipulater(self.data[col]) 
+            iqr_manipulating = ManiOut1D(self.data[col]) 
 
             new_df[col] = iqr_manipulating.nan_outliers()
 
         return pd.DataFrame(new_df)
     
 
+
+    def fill_outliers(self):
+        # fill outliers in a basic way, if you want it to be more flexible
+        # Just use nan_outliers and use "fillna" with more flexibility
+        
+        nan_numbers = self.nan_outliers()
+
+        nan_numbers.fillna(method="ffill", inplace=True)
+
+        return nan_numbers
+    
+
+    
     def remove_outliers(self):
 
-        new_df = {}
+        # Remove outliers in a basic way, if you want it to be more flexible
+        # Just use nan_outliers and use "dropna" with more flexibility
+        nan_numbers = self.nan_outliers()
 
-#TODO:: The problem is, if im removing the outliers transforming them in a nan value, if the dataset has no
-# outliers and has nan value tha's gonna remove or fill it. That's A main problem
+        nan_numbers.dropna(inplace=True)
+
+        return nan_numbers
+
+
+
+
+
+
 
 
         

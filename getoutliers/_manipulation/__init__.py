@@ -8,19 +8,19 @@ from pandas import Series
 from getoutliers._iqr import IQR
 import numpy as np
 from typing import Literal
-from _dtypes.types import DTypeUniOutlier
+from _dtypes.types import DType1DOutlier
 
 
 
-class OutlierManipulater(DTypeUniOutlier):
+class ManiOut1D(DType1DOutlier):
     """
-    OM = Outlier_manipulater
+    MO = Manipulate Outliers 1D
     =====
 
     This class is for manipulate outliers in a pandas DataFrame
     You can transform a outliers in a nan number, You can fill
     Those nan numbers whose considering a outliers for
-    Outlier_manipulater
+    'MO'
     
     """
     def nan_outliers(self):
@@ -36,7 +36,11 @@ class OutlierManipulater(DTypeUniOutlier):
         return self.data
     
 
-    def fill_outliers(self, method: Literal["mean", "median", "mode"] = "mean") -> Series:
+    def fill_outliers(
+        self,
+        method: Literal["mean", "median", "mode"] = "mean"
+        ) -> Series:
+        
         """Fill NaN values (former outliers) with a specified method.
         
         Method options:

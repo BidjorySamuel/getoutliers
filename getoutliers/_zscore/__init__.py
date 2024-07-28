@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
+from _dtypes.types import DType1DOutlier
 
 
-class ZScore:
+class ZScore(DType1DOutlier):
     """
     Z-Score
     ===
@@ -12,8 +13,6 @@ class ZScore:
     if zscore is higher or lower the this specific number, it considerating an outlier
     
     """
-    def __init__(self, data:pd.Series):
-        self.data = np.asanyarray(data)
 
 
     def theres_outliers(self, threshold=None):

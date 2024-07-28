@@ -2,10 +2,11 @@ import pandas as pd
 import numpy as np
 from getoutliers._iqr import IQR
 import matplotlib.pyplot as plt
+from _dtypes.types import Dtype2DOutlier
 
-class ViewOutliers:
-    def __init__(self, data:pd.Series):
-        self.data = data
+
+class ViewOutliers(Dtype2DOutlier):
+
 
     # Boxplot method gonna be more flexible in a soon future
     def boxplot(self, save=None):

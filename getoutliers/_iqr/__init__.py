@@ -1,8 +1,8 @@
 import numpy as np
-from _dtypes.types import DTypeUniOutlier
+from _dtypes.types import DType1DOutlier
 
 
-class IQR(DTypeUniOutlier):
+class IQR(DType1DOutlier):
     """
     IQR
     ===
