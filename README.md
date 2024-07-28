@@ -113,7 +113,6 @@ If you would like to contribute to this module, feel free to open a pull request
 ## License
 
 This project is licensed under the MIT License.
-```
 
 ## Author
 
